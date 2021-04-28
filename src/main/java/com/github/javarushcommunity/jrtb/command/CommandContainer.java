@@ -1,7 +1,6 @@
 package com.github.javarushcommunity.jrtb.command;
 
 import com.github.javarushcommunity.jrtb.service.SendBotMessageService;
-import com.github.javarushcommunity.jrtb.service.SendBotMessageServiceImpl;
 import com.google.common.collect.ImmutableMap;
 
 import static com.github.javarushcommunity.jrtb.command.CommandName.*;
@@ -14,16 +13,16 @@ public class CommandContainer {
     private final ImmutableMap<String, Command> commandMap;
     private final Command unknownCommand;
 
-    public CommandContainer(SendBotMessageServiceImpl sendBotMessageServiceImpl) {
+    public CommandContainer(SendBotMessageService sendBotMessageService) {
 
         this.commandMap = ImmutableMap.<String, Command > builder()
-                .put(START.getCommandName(), new StartCommand(sendBotMessageServiceImpl))
-                .put(STOP.getCommandName(), new StopCommand(sendBotMessageServiceImpl))
-                .put(HELP.getCommandName(), new HelpCommand(sendBotMessageServiceImpl))
-                .put(NO.getCommandName(), new NoCommand(sendBotMessageServiceImpl))
+                .put(START.getCommandName(), new StartCommand(sendBotMessageService))
+                .put(STOP.getCommandName(), new StopCommand(sendBotMessageService))
+                .put(HELP.getCommandName(), new HelpCommand(sendBotMessageService))
+                .put(NO.getCommandName(), new NoCommand(sendBotMessageService))
                 .build();
 
-        this.unknownCommand = new UnknownCommand(sendBotMessageServiceImpl);
+        this.unknownCommand = new UnknownCommand(sendBotMessageService);
     }
 
     public Command retrieveCommand(String commandIdentifier) {

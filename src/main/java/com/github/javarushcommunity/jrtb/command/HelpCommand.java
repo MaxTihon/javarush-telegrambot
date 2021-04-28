@@ -1,6 +1,6 @@
 package com.github.javarushcommunity.jrtb.command;
 
-import com.github.javarushcommunity.jrtb.service.SendBotMessageServiceImpl;
+import com.github.javarushcommunity.jrtb.service.SendBotMessageService;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import static com.github.javarushcommunity.jrtb.command.CommandName.*;
 
@@ -18,14 +18,14 @@ public class HelpCommand implements Command {
                     + "%s - получить помощь в работе со мной\n",
             START.getCommandName(), STOP.getCommandName(), HELP.getCommandName());
 
-    private final SendBotMessageServiceImpl sendBotMessageServiceImpl;
+    private final SendBotMessageService sendBotMessageService;
 
-    public HelpCommand(SendBotMessageServiceImpl sendBotMessageServiceImpl) {
-        this.sendBotMessageServiceImpl = sendBotMessageServiceImpl;
+    public HelpCommand(SendBotMessageService sendBotMessageService) {
+        this.sendBotMessageService = sendBotMessageService;
     }
 
     @Override
     public void execute(Update update) {
-        sendBotMessageServiceImpl.sendMessage(update.getMessage().getChatId().toString(), HELP_MESSAGE);
+        sendBotMessageService.sendMessage(update.getMessage().getChatId().toString(), HELP_MESSAGE);
     }
 }
